@@ -24,6 +24,30 @@ services:
       - db
     environment:
       DATABASE_URL: postgres://postgres:password@db:5432/mercari_clone_development
+
+  tailwindcss-watch:
+    image: mercari-clone:latest
+    volumes:
+      - .:/myapp
+      - bundle:/usr/local/bundle
+      - node_modules:/myapp/node_modules
+    command: ["rails", "tailwindcss:watch"]
+    tty: true
+
+  webpack-dev-server:
+    image: mercari-clone:latest
+    volumes:
+      - .:/myapp
+      - bundle:/usr/local/bundle
+      - node_modules:/myapp/node_modules
+    environment:
+      NODE_ENV: development
+      RAILS_ENV: development
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+    command: ./bin/webpack-dev-server
+    ports:
+      - "3035:3035"
+
 volumes:
   bundle:
   node_modules:
