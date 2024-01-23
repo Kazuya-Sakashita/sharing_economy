@@ -19,7 +19,8 @@ services:
       - bundle:/usr/local/bundle
       - node_modules:/myapp/node_modules
     ports:
-      - "3000:3000"
+      - "3000:3000" # Railsサーバー用
+      - "3001:3001" # letter_opener_web用
     depends_on:
       - db
     environment:
