@@ -4,10 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  with_options presence: true do
-    validates :nickname
-    validates :gender
-  end
+  validates :nickname, presence: true
+  validates :gender, presence: true
+  before_validation :skip_confirmation!, if: :new_record?
+
+  has_one :user_information, dependent: :destroy
 
   enum gender: {
     unanswered: 0,

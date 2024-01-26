@@ -10,8 +10,9 @@ Rails.application.routes.draw do
 
   root to: "home#index"
 
-  # mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  resource :user_information
 
+  # mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
