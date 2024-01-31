@@ -22,7 +22,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :items
+  resources :items do
+    resources :favorites, only: %i[create]
+    delete "favorites", to: "favorites#destroy", as: :favorite
+  end
 
   # mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   if Rails.env.development?
